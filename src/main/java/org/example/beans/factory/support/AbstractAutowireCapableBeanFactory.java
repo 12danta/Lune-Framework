@@ -19,12 +19,11 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         return doCreateBean(beanName,beanDefinition);
     }
     protected Object doCreateBean(String beanName,BeanDefinition beanDefinition) {
-        Class beanClass = beanDefinition.getBeanClass();
         Object bean = null;
         try{
-            Constructor<?> constructor = beanClass.getConstructor();
-            constructor.setAccessible(true);
-            bean = constructor.newInstance();
+            bean = createBeanInstance(beanDefinition);
+            //为bean填充属性
+            applyPropertyValues(beanName,bean,beanDefinition);
         }catch (Exception e){
             throw new BeansException("Instantiation of bean failed",e);
         }
@@ -49,7 +48,6 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
                 Object value = propertyValue.getValue();
                 //反射设置属性
                 BeanUtil.setFieldValue(bean,name,value);
-
             }
         }catch (Exception e){
             throw new BeansException("Error setting property values for bean: " + beanName,e);
