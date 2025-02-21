@@ -1,6 +1,7 @@
 package org.example.beans.factory.support;
 
 import org.example.beans.BeansException;
+import org.example.beans.factory.ConfigurableListableBeanFactory;
 import org.example.beans.factory.config.BeanDefinition;
 
 import java.util.HashMap;
@@ -10,7 +11,7 @@ import java.util.Map;
  * @author Chloe
  * @date 2025/01/14
  */
-public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFactory implements BeanDefinitionRegistry{
+public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFactory implements ConfigurableListableBeanFactory, BeanDefinitionRegistry{
 
     private Map<String,BeanDefinition> beanDefinitionMap = new HashMap<>();
     @Override
